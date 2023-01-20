@@ -70,7 +70,7 @@ dic_news_list = []
 titlelist = []
 linklist = []
 # 기사 50개만 수집
-number = 200
+number = 1050
 range_num = number // 10 + 2
 
 
@@ -144,6 +144,6 @@ for page in range(1, range_num):
 # csv 파일로 저장하기
 data = {"title" : titlelist,"link": linklist}
 df = pd.DataFrame(data)
-df.to_csv("test.csv")
+df.to_csv("1000_.csv")
 
 print(' csv 저장 완료')

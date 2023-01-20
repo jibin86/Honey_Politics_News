@@ -1,3 +1,4 @@
+import os
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -18,7 +19,6 @@ from selenium.webdriver.chrome.options import Options
 
 # 크롬 드라이버 자동 업데이트
 from webdriver_manager.chrome import ChromeDriverManager
-
 
 
 # 와인 1개의 info 얻기
@@ -48,18 +48,57 @@ browser = webdriver.Chrome(service=service, options=chrome_options)
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('test.csv')
+# df = pd.read_csv('test.csv')
+start_idx = 0
+# 이미 크롤링된 파일이 있으면 그 다음부터 크롤링 시작한다.
+if os.path.exists('1000_result_news_body_link.csv'):
+    df_before = pd.read_csv('1000_result_news_body_link.csv')
+    start_idx = df_before.tail(1)['index'].values[0] + 1
+    print(start_idx)
+
+df = pd.read_csv('1000_link.csv')
 print(df.shape)
 art_body_list = []
-df22 = df.iloc[75:,]
-urls = df22['link']
-for i, url in enumerate(urls):
-    browser.get(url)
-    art_body = get_art_body()
-    art_body_list.append(art_body)
-    print(f'{i}/{df22.shape[0]} \n {url} \n body 수집 완료')
-df22['body'] = art_body_list
+art_url_list = []
+idx_list = []
+df22 = df[df['index']>=start_idx]
+urls = list(df22['link'])
+idx = list(df22['index'])
 
-df22.to_csv("news_body2.csv")
+try:
+    for i in range(len(idx)):
+        try:
+            browser.get(urls[i])
+        except Exception as e:
+            print(e)
+            break
+        
 
-print(' csv 저장 완료')
+        sleep(2)
+        # 현재 떠있는 창 확인
+        main = browser.window_handles
+        # 팝업창 종료
+        for w in main:
+            if w != main[0]:
+                browser.switch_to.window(w)
+                browser.close()
+                print("close window")
+        browser.switch_to.window(main[0])
+
+        art_body = get_art_body()
+        art_body_list.append(art_body)
+        art_url = urls[i]
+        art_url_list.append(urls[i])
+        idx_list.append(idx[i])
+        print(f'{i}/{df22.shape[0]} \n {urls[i]} \n collect body')
+# 오류가 나도 오류 나기전까지 저장하도록 한다.
+finally:
+    dic_new = {"index" : idx_list,"link": art_url_list, "body":art_body_list}
+    df_new = pd.DataFrame(dic_new)
+    
+    if not os.path.exists('1000_result_news_body_link.csv'):
+        df_new.to_csv('1000_result_news_body_link.csv', index=False, mode='w', encoding='utf-8-sig')
+    else:
+        df_new.to_csv('1000_result_news_body_link.csv', index=False, mode='a', encoding='utf-8-sig', header=False)
+
+    print('finish saving into csv')
