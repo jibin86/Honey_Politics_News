@@ -21,7 +21,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# 와인 1개의 info 얻기
 def get_art_body():
     soup = BeautifulSoup(browser.page_source, "lxml")
     content = ''
