@@ -26,6 +26,18 @@
             -webkit-line-clamp: 3;
             overflow: hidden;
         }
+
+        a,
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        #ad_tag, .img_large, .caption, iframe , .article_bottom_ad, .ads5PgPv, #movie_overlay, .iwmads.is-loaded , .csart-ext-mov {
+            display: none;
+            visibility: hidden;
+        }
+        
     </style>
 </head>
 
@@ -89,6 +101,9 @@
     </div>
 
     <!-- Main Content -->
+
+
+
     <div class="container py-4">
         <div class="row" style="float: none; margin: 10 auto;">
             <div class="col-xl-8 my-4" style="float: none; margin: 0 auto;">
@@ -97,7 +112,7 @@
                     <!-- 본문 -->
 
                     <p>
-                        {{news[2]}}
+                        {{news[9]|safe}}
                     </p>
                 </span>
             </div>
@@ -110,10 +125,10 @@
 
                             <!-- 편향도 -->
 
-                            보수 60%
+                            보수 {{100-news[7]}}%
                             <div style="display: grid; height: 20px;
                             
-                            grid-template-columns: 60% 40%">
+                            grid-template-columns: {{100-news[7]}}% {{news[7]}}%">
                                 <bar style="background-color: rgb(231, 71, 71); padding: 2px; margin-left: 5px;
                                          border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
                                 </bar>
@@ -123,55 +138,29 @@
 
                                 <!-- 편향도 -->
 
-                            </div>진보 40%
+                            </div>진보 {{news[7]}}%
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">추천 뉴스</h5>
 
-                        <!-- 추천 뉴스 -->
 
+
+                        <!-- 추천 뉴스 -->
+                        {% for rec_news in rec_news_list %}
                         <div class="row">
                             <div class="col mb-2">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title font-weight-bold">북한, 코로나19 극복 다큐 방영…“80여일만 종식 기적”</div>
-                                        <p class="card-text small">김정은 북한 국무위원장이 과거 도널드 트럼프 미국 전 대통령이 그에게...</p>
+                                <a href="{{url_for('newspage.news', number=rec_news[0])}}"> <!-- 클릭하면 뉴스 인덱스 전달 -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title font-weight-bold">{{rec_news[4]}}</div>
+                                            <!-- 뉴스 타이틀 -->
+                                            <p class="card-text small">{{rec_news[2]}}</p>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col mb-2">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title font-weight-bold">북한, 코로나19 극복 다큐 방영…“80여일만 종식 기적”</div>
-                                        <p class="card-text small">김정은 북한 국무위원장이 과거 도널드 트럼프 미국 전 대통령이 그에게...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-2">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title font-weight-bold">북한, 코로나19 극복 다큐 방영…“80여일만 종식 기적”</div>
-                                        <p class="card-text small">김정은 북한 국무위원장이 과거 도널드 트럼프 미국 전 대통령이 그에게...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-2">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title font-weight-bold">북한, 코로나19 극복 다큐 방영…“80여일만 종식 기적”</div>
-                                        <p class="card-text small">김정은 북한 국무위원장이 과거 도널드 트럼프 미국 전 대통령이 그에게...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("data.csv")
+df = pd.read_csv("web/data.csv")
 df0 = df.sort_values(by='date', ascending=False)
 df1 = df[df['cluster']==0]
 df2 = df[df['cluster']==1]
