@@ -13,16 +13,28 @@
 
     <title>Honey Politics News</title>
     <style>
-        meter {
-            width: 400px;
-            height: 25px;
+        div.card-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .card-text {
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
         }
     </style>
 </head>
 
 <body>
+    <button
+        style="position: fixed; bottom: 100px; right: 60px; background-color: #007bff; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
+        onclick="document.location.href = '#top';">Go Up</button>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="top">
         <div class="container">
             <a class="navbar-brand" href="/">Honey Politics News</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,19 +44,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#Group1">Group1</a>
+                        <a class="nav-link" href="/#Latest">Latest News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#Group2">Group2</a>
+                        <a class="nav-link" href="/#Group1">Group1</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#Group3">Group3</a>
+                        <a class="nav-link" href="/#Group2">Group2</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#Group4">Group4</a>
+                        <a class="nav-link" href="/#Group3">Group3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#Group4">Group4</a>
                     </li>
                 </ul>
             </div>
@@ -56,9 +71,18 @@
         <div class="container my-4">
             <div class="row" style="float: none; margin: 100 auto;">
                 <div class="col-md-12" style="float: none; margin: 0 auto;">
-                    <strong>중앙일보</strong>
-                    <h2 class="py-4">“김정은, 트럼프에 ‘로켓맨’은 OK, ‘리틀’은 NO”</h2>
-                    <small>배재성 기자 2023-01-24 23:01:00</small>
+
+                    <!-- 신문사 -->
+
+                    <strong>{{news[6]}}</strong>
+
+                    <!-- 타이틀 -->
+
+                    <h2 class="py-4">{{news[4]}}</h2>
+
+                    <!-- 기자이름 날짜 -->
+
+                    <small>{{news[3]}} {{news[5]}}</small>
                 </div>
             </div>
         </div>
@@ -69,16 +93,11 @@
         <div class="row" style="float: none; margin: 10 auto;">
             <div class="col-xl-8 my-4" style="float: none; margin: 0 auto;">
                 <span style="font-size: 18px; line-height: 2;">
+
+                    <!-- 본문 -->
+
                     <p>
-                        김정은 북한 국무위원장이 과거 도널드 트럼프 미국 전 대통령이 그에게 붙인 별명 ‘리틀 로켓맨’(Little Rocket Man)을 두고 “로켓맨은 괜찮지만, 리틀은 안
-                        괜찮다”고 언급했다고 마이크 폼페이오 전 국무장관이 전했다.24일(현지시간) 비즈니스인사이더에 따르면 마이크 폼페이오 전 장관은 회고록 ‘한 치도 물러서지 말라, 내가
-                        사랑하는 미국을 위한 싸움’(Never Give an Inch, Fighting for the America I Love)에서 이러한 일화를 전했다. 폼페이오 전 장관은
-                        책에서 2018년 6월 12일 싱가포르에서 열린 북미 정상회담 오찬에서 오간 대화를 자세히 담았다. 당시 트럼프 전 대통령은 김 위원장에게 ‘엘턴 존이 누군지 아냐’고
-                        물으며 그의 히트곡 ‘로켓맨’에서 별명을 따왔다고 설명했다고 한다. 폼페이오는 트럼프 전 대통령이 “이 곡(로켓맨)을 멋진 노래라고 하면서, 그 표현을 칭찬인 것처럼
-                        말했다”고 회고록에 적었다. 회고록에 따르면 트럼프 전 대통령의 설명에 김 위원장을 비롯한 참석자 대부분이 웃음을 터뜨렸다. 특히 김 위원장은 “'로켓맨은 괜찮다(OK).
-                        ‘리틀’은 안 괜찮다(not OK)”고 농담했다고 폼페이오 전 장관은 회고했다. 폼페이오는 또 “나의 북한 친구(김정은)가 통굽 신발을 신었다는 것을 바로 알아차렸다. 그는
-                        트럼프 대통령보다 1피트(약 30㎝) 작았다”며 “5피트 5인치 정도의 김 위원장은 말그대로 1인치도 양보할 수 없었다”고 적었다. 트럼프 전 대통령은 2017년 트위터에서
-                        김 위원장을 ‘리틀 로켓맨’이라고 처음 언급했다. 대통령 재임 기간 유엔(UN) 총회 연설 등 여러 공식석상에서 이 표현을 사용했다.
+                        {{news[2]}}
                     </p>
                 </span>
             </div>
@@ -88,8 +107,12 @@
                         <h5 class="card-title">정치 편향도 분석 결과</h5>
                         <div style="display: grid;
                             grid-template-columns: 70px auto 70px;">
+
+                            <!-- 편향도 -->
+
                             보수 60%
                             <div style="display: grid; height: 20px;
+                            
                             grid-template-columns: 60% 40%">
                                 <bar style="background-color: rgb(231, 71, 71); padding: 2px; margin-left: 5px;
                                          border-top-left-radius: 20px; border-bottom-left-radius: 20px;">
@@ -97,11 +120,17 @@
                                 <bar style=" background-color: rgb(18, 154, 18); padding: 2px; margin-right: 5px;
                                          border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
                                 </bar>
+
+                                <!-- 편향도 -->
+
                             </div>진보 40%
                         </div>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">추천 뉴스</h5>
+
+                        <!-- 추천 뉴스 -->
+
                         <div class="row">
                             <div class="col mb-2">
                                 <div class="card">
